@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header">Monthly expenses (<%= Number.Currency.number_to_currency(@average_monthly_expenses, unit: "CZK ", precision: 0) %>)</h5>
+            <div class="card-body">
+                <%= raw Chartkick.column_chart @monthly_expenses, stacked: true, library: %{backgroundColor: "black"} %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header"><%= @category_name %> expenses - Budget: <%= Number.Currency.number_to_currency(@budget, unit: "CZK ", precision: 0) %> - Average spending: <%= Number.Currency.number_to_currency(@spending, unit: "CZK ", precision: 0) %> </h5>
+            <div class="card-body">
+                <%= raw Chartkick.line_chart @expenses, library: %{backgroundColor: "black"} %>
+            </div>
+        </div>
+    </div>
+</div>

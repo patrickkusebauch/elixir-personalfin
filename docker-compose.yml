@@ -1,0 +1,29 @@
+version: '3.2'
+services:
+  db:
+    image: postgres
+    volumes:
+      - f80310831ede0e3c2b3f94b48cb53c2d9414a248d1365b2ecf51e9857cb0233e:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    command:
+      - ./run.sh
+    env_file:
+      - .env
+
+volumes:
+  f80310831ede0e3c2b3f94b48cb53c2d9414a248d1365b2ecf51e9857cb0233e:
+    external: true

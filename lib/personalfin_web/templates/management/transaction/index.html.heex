@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <h5 class="card-header">Budget categories</h5>
+      <div class="card-body">
+        <%= form_for @conn, Routes.management_transaction_path(@conn, :update_categories), fn f -> %>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Budget</th>
+          </tr>
+          </thead>
+          <tbody>
+          <%= for category <- @categories do %>
+          <tr>
+            <td class="align-middle"><%= category.name %></td>
+            <td>
+              <%= number_input f, "#{input_id(f, :category_budget)}[#{category.id}]", class: "form-control", value: category.budget, id: "#{input_id(f, :category_budget)}[#{category.id}]" %>
+              <%= error_tag f, :category_budget %>
+            </td>
+          </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <%= submit "Save", class: "btn btn-primary mb-3" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <h5 class="card-header">Uncategorized transactions</h5>
+      <div class="card-body">
+        <%= form_for @conn, Routes.management_transaction_path(@conn, :update_transactions), fn f -> %>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Notes</th>
+            <th>Category</th>
+          </tr>
+          </thead>
+          <tbody>
+          <%= for transaction <- @transactions do %>
+          <tr>
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.date %></td>
+            <td><%= transaction.notes %></td>
+            <td>
+              <%= select f, "#{input_id(f, :transaction_category_id)}[#{transaction.id}]", Enum.map(@categories,  &{&1.name, &1.id}), class: "form-control", id: "#{input_id(f, :transaction_category_id)}[#{transaction.id}]", prompt: "Select category" %>
+              <%= error_tag f, :transaction_category_id %>
+            </td>
+          </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <%= submit "Save", class: "btn btn-primary mb-3" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<h1>Listing Investments</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th>Broker</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for investment <- @investments do %>
+    <tr>
+      <td><%= investment.name %></td>
+      <td><%= Number.Currency.number_to_currency(investment.value, unit: "CZK ") %></td>
+      <td><%= investment.broker %></td>
+
+      <td>
+        <span><%= link "Edit", to: Routes.management_investment_path(@conn, :edit, investment) %></span>
+        <span><%= link "Delete", to: Routes.management_investment_path(@conn, :delete, investment), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+  <tfoot>
+  <tr>
+    <th>TOTAL</th>
+    <th colspan="3"><%= Number.Currency.number_to_currency(@total, unit: "CZK ") %></th>
+  </tr>
+  </tfoot>
+</table>
+
+<span><%= link "New Investment", to: Routes.management_investment_path(@conn, :new) %></span>

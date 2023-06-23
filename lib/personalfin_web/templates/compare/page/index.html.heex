@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header">Investments</h5>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Invested</th>
+                        <th>Actual value</th>
+                        <th>Actual change</th>
+                        <th>Market value</th>
+                        <th>Market change</th>
+                        <th>Loss/Gain</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%= for investment <- @investments do %>
+                    <tr>
+                        <td><%= investment.name %></td>
+                        <td><%= Number.Currency.number_to_currency(investment.invested, unit: "CZK ") %></td>
+                        <td><%= Number.Currency.number_to_currency(investment.actual_value, unit: "CZK ") %></td>
+                        <td {[class: (if investment.actual_change < 0, do: "text-danger", else: "text-success")]}><%= Number.Percentage.number_to_percentage(investment.actual_change, precision: 2) %></td>
+                        <td><%= Number.Currency.number_to_currency(investment.market_value, unit: "CZK ") %></td>
+                        <td {[class: (if investment.market_change < 0, do: "text-danger", else: "text-success")]}><%= Number.Percentage.number_to_percentage(investment.market_change, precision: 2) %></td>
+                        <td {[class: (if investment.loss_gain < 0, do: "text-danger", else: "text-success")]}><%= Number.Currency.number_to_currency(investment.loss_gain, unit: "CZK ") %></td>
+                    </tr>
+                    <% end %>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th><%= Number.Currency.number_to_currency(@total.invested, unit: "CZK ") %></th>
+                        <th><%= Number.Currency.number_to_currency(@total.actual_value, unit: "CZK ") %></th>
+                        <th {[class: (if @total.actual_change < 0, do: "text-danger", else: "text-success")]}><%= Number.Percentage.number_to_percentage(@total.actual_change, precision: 2) %></th>
+                        <th><%= Number.Currency.number_to_currency(@total.market_value, unit: "CZK ") %></th>
+                        <th {[class: (if @total.market_change < 0, do: "text-danger", else: "text-success")]}><%= Number.Percentage.number_to_percentage(@total.market_change, precision: 2) %></th>
+                        <th {[class: (if @total.loss_gain < 0, do: "text-danger", else: "text-success")]}><%= Number.Currency.number_to_currency(@total.loss_gain, unit: "CZK ") %></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

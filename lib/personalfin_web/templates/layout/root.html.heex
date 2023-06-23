@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="csrf-token" content={csrf_token_value()}>
+  <%= live_title_tag assigns[:page_title] || "Personalfin", suffix: " · Phoenix Framework" %>
+  <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+
+  <script phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+  <script src="//www.google.com/jsapi"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <%= link "Home", to: Routes.page_path(@conn, :index), class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Management
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            <li><%= link "Overview", to: Routes.management_page_path(@conn, :index), class: "dropdown-item"%></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><%= link "Accounts", to: Routes.management_account_path(@conn, :index), class: "dropdown-item" %></li>
+            <li><%= link "Investments", to: Routes.management_investment_path(@conn, :index), class: "dropdown-item" %></li>
+            <li><%= link "Stocks", to: Routes.management_stock_path(@conn, :index), class: "dropdown-item" %></li>
+            <li><%= link "Transactions", to: Routes.management_transaction_path(@conn, :index), class: "dropdown-item" %></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <%= link "Projection", to: Routes.projection_page_path(@conn, :index), class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link "Compare", to: Routes.compare_page_path(@conn, :index), class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link "Expenses", to: Routes.expense_page_path(@conn, :index), class: "nav-link"%>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+        <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home), class: "nav-link" %></li>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<main role="main" class="container" style="margin-top: 75px">
+  <%= @inner_content %>
+</main>
+
+</body>
+</html>

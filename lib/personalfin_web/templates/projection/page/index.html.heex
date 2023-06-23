@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header">Overview</h5>
+            <div class="card-body">
+                <%= raw Chartkick.line_chart @overview %>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header">Investments</h5>
+            <div class="card-body">
+                <%= raw Chartkick.line_chart @investments %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header">Stocks</h5>
+            <div class="card-body">
+                <%= raw Chartkick.line_chart @stocks %>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header">Accounts</h5>
+            <div class="card-body">
+                <%= raw Chartkick.line_chart @accounts %>
+            </div>
+        </div>
+    </div>
+</div>

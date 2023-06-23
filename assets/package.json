@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "chartkick": "^4.2.0",
+    "d3-graphviz": "^4.5.0"
+  },
+  "devDependencies": {
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.3"
+  }
+}

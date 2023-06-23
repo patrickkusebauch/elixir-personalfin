@@ -1,0 +1,5 @@
+<h1>Edit Investment</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.management_investment_path(@conn, :update, @investment)) %>
+
+<span><%= link "Back", to: Routes.management_investment_path(@conn, :index) %></span>

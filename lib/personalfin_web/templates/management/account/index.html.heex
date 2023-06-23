@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <h5 class="card-header">Listing Accounts</h5>
+      <div class="card-body">
+        <%= link "Connect Airbank", to: Routes.management_account_path(@conn, :connect, "AirBank"), class: "btn btn-primary" %>
+        <%= link "Connect Revolut", to: Routes.management_account_path(@conn, :connect, "Revolut"), class: "btn btn-primary" %>
+        <%= link "Connect UniCredit", to: Routes.management_account_path(@conn, :connect, "UniCredit"), class: "btn btn-primary" %>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Iban</th>
+            <th>Name</th>
+            <th>Balance</th>
+            <th>Currency</th>
+            <th>Last access</th>
+
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <%= for account <- @accounts do %>
+          <tr>
+            <td><%= account.iban %></td>
+            <td><%= account.name %></td>
+            <td><%= Number.Currency.number_to_currency(account.balance, unit: "") %></td>
+            <td><%= account.currency %></td>
+            <td><%= account.last_access %></td>
+
+            <td>
+              <%= link "Edit", to: Routes.management_account_path(@conn, :edit, account), class: "btn btn-outline-warning btn-sm" %>
+              <span><%= link "Delete", to: Routes.management_account_path(@conn, :delete, account), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-outline-danger btn-sm"  %></span>
+            </td>
+          </tr>
+          <% end %>
+          </tbody>
+          <tfoot>
+          <tr>
+            <th>TOTAL</th>
+            <th></th>
+            <th><%= Number.Currency.number_to_currency(@total, unit: "") %></th>
+            <th>CZK</th>
+            <th></th>
+            <th></th>
+          </tr>
+          </tfoot>
+        </table>
+
+        <%= link "New Account", to: Routes.management_account_path(@conn, :new), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
